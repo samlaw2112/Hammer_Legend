@@ -8,41 +8,57 @@ public class PlayerController : MonoBehaviour
     public float rotationSensitivity;
     [Tooltip("Speed that arrow keys move player (won't need this for real game).")]
     public float movementSpeed;
+    [Tooltip("Scalar applied to speed of first launch.")]
+    public float firstLaunchSpeed;
+    [Tooltip("Mass of player character (Active after start launch).")]
+    public float playerMass;
+    [Tooltip("Gravity scale of player character (Active after start launch).")]
+    public float gravityScale;
 
-    private Vector3 dragStartPoint;
+
     private Animator animator;
+    private Rigidbody2D body;
+   
 
     // Start is called before the first frame update
     void Start()
     {
+        body = GetComponent<Rigidbody2D>();
+        Debug.Log("Found body " + body);
         animator = GetComponent<Animator>();
+
+        body.mass = playerMass;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         MovePlayerIfArrowDown();
     }
 
-    // Called when user starts a drag. Logs drag starting position
-    public void LogDragStartPoint()
+    // Updates rotation of the player
+    public void RotatePlayer(Vector3 dragStartPoint, Vector3 dragCurrentPoint)
     {
-        dragStartPoint = Input.mousePosition;
-    }
-
-    // Called during a drag. Updates rotation of the player
-    public void RotatePlayer()
-    {
-        Vector3 dragOffset = Input.mousePosition - dragStartPoint;
+        Vector3 dragOffset = dragCurrentPoint - dragStartPoint;
         Vector3 rotation = new Vector3(0f, 0f, dragOffset.x * rotationSensitivity);
         transform.eulerAngles = rotation;
     }
 
-    // Called at the end of a drag. Initiates hammer swing
+    //Initiates hammer swing
     public void SwingHammer()
     {
         animator.SetTrigger("SwingTrigger");
     }
+
+    // Launches player based on angle and length of line drawn and turns on gravity
+    public void InitialLaunch(Vector3 dragStartPoint, Vector3 dragCurrentPoint)
+    {
+        Vector3 dragOffset = dragCurrentPoint - dragStartPoint;
+        body.velocity = dragOffset * -firstLaunchSpeed; // Launch in opposite direction to drag
+        body.gravityScale = gravityScale;
+    }
+
 
     // Move player with arrow keys (temporary only using for testing)
     void MovePlayerIfArrowDown()
@@ -65,10 +81,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector3(0f, 0f);
+            body.velocity = new Vector3(0f, 0f);
         }
         else { return; };
     }
-
 
 }

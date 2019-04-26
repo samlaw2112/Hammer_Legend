@@ -16,9 +16,8 @@ public class HammerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Assuming there will only ever be one play
+        // Assuming there will only ever be one player
         player = FindObjectOfType<PlayerController>();
-        Debug.Log("Found player: " + player);
     }
 
     // If hammer collides with a platform propel the player forwards
@@ -28,7 +27,8 @@ public class HammerController : MonoBehaviour
 
         if (collision.collider.gameObject.GetComponent<Platform>())
         {
-            //TODO Improve calculation of impact angle - currently always fly orthogonal to platform edge
+            // TODO Improve calculation of impact angle - currently always fly orthogonal to platform edge
+            // TODO increase velocity for perfect impact
 
             // Move the player forwards along normal of the collision
             player.GetComponent<Rigidbody2D>().velocity = collision.contacts[0].normal * launchSpeed;
