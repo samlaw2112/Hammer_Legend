@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [Tooltip("Scalar applied to calculation of player rotation from input drag.")]
     public float rotationSensitivity;
+    [Tooltip("Speed that arrow keys move player (won't need this for real game).")]
+    public float movementSpeed;
 
     private Vector3 dragStartPoint;
     private Animator animator;
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MovePlayerIfArrowDown();
     }
 
     // Called when user starts a drag. Logs drag starting position
@@ -41,4 +43,32 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("SwingTrigger");
     }
+
+    // Move player with arrow keys (temporary only using for testing)
+    void MovePlayerIfArrowDown()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.position += new Vector3(-movementSpeed, 0f);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.position += new Vector3(movementSpeed, 0f);
+        }
+        else if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.position += new Vector3(0f, movementSpeed);
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.position += new Vector3(0f, -movementSpeed);
+        }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0f, 0f);
+        }
+        else { return; };
+    }
+
+
 }
