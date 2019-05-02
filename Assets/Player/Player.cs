@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     [Tooltip("Speed that arrow keys move player (won't need this for real game).")]
     public float movementSpeed;
     [Tooltip("Scalar applied to speed of first launch.")]
-    public float firstLaunchSpeed;
+    public float firstLaunchSpeedY;
+    [Tooltip("Scalar applied to speed of first launch.")]
+    public float firstLaunchSpeedX;
     [Tooltip("Base speed that player will always be moving to the right (after first launch).")]
     public float baseSpeed;
     [Tooltip("Mass of player character (Active after start launch).")]
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
     public void InitialLaunch(Vector3 dragStartPoint, Vector3 dragCurrentPoint)
     {
         Vector3 dragOffset = dragCurrentPoint - dragStartPoint;
-        body.velocity = dragOffset * -firstLaunchSpeed; // Launch in opposite direction to drag
+        body.velocity = new Vector3(dragOffset.x *- firstLaunchSpeedX, dragOffset.y * -firstLaunchSpeedY); // Launch in opposite direction to drag
         body.gravityScale = gravityScale;
         body.drag = drag;
         inAir = true;
