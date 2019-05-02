@@ -34,7 +34,7 @@ public class LaunchTrajectory : MonoBehaviour
 
     public void DestroyLine()
     {
-        Destroy(gameObject);
+        lineRenderer.enabled = false;
     }
 
 

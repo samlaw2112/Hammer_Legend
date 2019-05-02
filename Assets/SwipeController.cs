@@ -8,18 +8,14 @@ using UnityEngine;
 
 public class SwipeController : MonoBehaviour
 {
-    private PlayerController player;
+    private Player player;
     private LaunchTrajectory launchTrajectory;
-    private bool firstLaunch = true;
+    private bool firstLaunch;
     private Vector3 dragStartPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Assuming there will only ever be one player
-        player = FindObjectOfType<PlayerController>();
-        // And one launch trajectory
-        launchTrajectory = FindObjectOfType<LaunchTrajectory>();
     }
 
     // Update is called once per frame
@@ -62,5 +58,17 @@ public class SwipeController : MonoBehaviour
         {
             player.SwingHammer();
         }
+    }
+
+    public void SetNewPlayer(Player newPlayer)
+    {
+        player = newPlayer;
+    }
+
+    public void SetFirstLaunch ()
+    {
+        // Find launch tragectory on player
+        launchTrajectory = player.GetComponentInChildren<LaunchTrajectory>();
+        firstLaunch = true;
     }
 }
