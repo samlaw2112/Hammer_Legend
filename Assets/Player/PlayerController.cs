@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour
 
     private GameObject player;
     private SwipeController swipeController;
+    private CameraHandle cameraHandle;
 
-    private void Start()
+    private void Awake()
     {
         swipeController = FindObjectOfType<SwipeController>();
+        cameraHandle = FindObjectOfType<CameraHandle>();
         SpawnPlayer();
     }
 
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour
     {
         player = Instantiate(playerPrefab, transform.position, Quaternion.identity) as GameObject;
         player.transform.SetParent(transform);
+        cameraHandle.ResetGamePosition();
+        cameraHandle.SetNewPlayer(player.GetComponent<Player>());
         swipeController.SetNewPlayer(player.GetComponent<Player>());
         swipeController.SetFirstLaunch();
     }
@@ -31,6 +35,11 @@ public class PlayerController : MonoBehaviour
     {
         Destroy(player.gameObject);
         SpawnPlayer();
+    }
+
+    public Player GetPlayer()
+    {
+        return player.GetComponent<Player>();
     }
 
 }

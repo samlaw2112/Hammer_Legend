@@ -71,4 +71,9 @@ public class SwipeController : MonoBehaviour
         launchTrajectory = player.GetComponentInChildren<LaunchTrajectory>();
         firstLaunch = true;
     }
+
+    public bool GetFirstLaunch()
+    {
+        return firstLaunch;
+    }
 }

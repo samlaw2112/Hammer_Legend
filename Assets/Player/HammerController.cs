@@ -11,13 +11,13 @@ public class HammerController : MonoBehaviour
     [Tooltip("Scalar applied to calculation of player launch from hammer hit on platform.")]
     public float launchSpeed;
 
-    private PlayerController player;
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
     {
         // Assuming there will only ever be one player
-        player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<Player>();
     }
 
     // If hammer collides with a platform propel the player forwards
@@ -31,7 +31,7 @@ public class HammerController : MonoBehaviour
             // TODO increase velocity for perfect impact
 
             // Move the player forwards along normal of the collision
-            player.GetComponent<Rigidbody2D>().velocity = collision.contacts[0].normal * launchSpeed;
+            player.GetComponent<Rigidbody2D>().velocity += collision.contacts[0].normal * launchSpeed;
 
         }
 

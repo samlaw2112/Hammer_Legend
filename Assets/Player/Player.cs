@@ -10,15 +10,19 @@ public class Player : MonoBehaviour
     public float movementSpeed;
     [Tooltip("Scalar applied to speed of first launch.")]
     public float firstLaunchSpeed;
+    [Tooltip("Base speed that player will always be moving to the right (after first launch).")]
+    public float baseSpeed;
     [Tooltip("Mass of player character (Active after start launch).")]
     public float playerMass;
-    [Tooltip("Gravity scale of player character (Active after start launch).")]
+    [Tooltip("Gravity scale of player character (Active after first launch).")]
     public float gravityScale;
+    [Tooltip("Drag of player character (Active after first launch).")]
+    public float drag;
 
 
     private Animator animator;
     private Rigidbody2D body;
-
+    private bool inAir = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +41,9 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
 
-        MovePlayerIfArrowDown();
     }
 
     // Updates rotation of the player
@@ -63,6 +66,8 @@ public class Player : MonoBehaviour
         Vector3 dragOffset = dragCurrentPoint - dragStartPoint;
         body.velocity = dragOffset * -firstLaunchSpeed; // Launch in opposite direction to drag
         body.gravityScale = gravityScale;
+        body.drag = drag;
+        inAir = true;
     }
 
 
@@ -91,4 +96,10 @@ public class Player : MonoBehaviour
         }
         else { return; };
     }
+
+    public bool GetInAir()
+    {
+        return inAir;
+    }
+
 }

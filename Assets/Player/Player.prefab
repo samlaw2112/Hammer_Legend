@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ae2540602935b4f82e17ff3debc810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchSpeed: 50
+  launchSpeed: 75
 --- !u!1 &7951464594787318498
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,9 +407,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSensitivity: 1
   movementSpeed: 1
-  firstLaunchSpeed: 1
+  firstLaunchSpeed: 0.05
+  baseSpeed: 50
   playerMass: 1
-  gravityScale: 1
+  gravityScale: 10
+  drag: 0.25
 --- !u!1 &7951464596049649775
 GameObject:
   m_ObjectHideFlags: 0
