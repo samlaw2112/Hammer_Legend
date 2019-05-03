@@ -389,6 +389,7 @@ MonoBehaviour:
   firstLaunchSpeedY: 1
   firstLaunchSpeedX: 1
   baseSpeed: 1
+  JetPackStrength: 100
   JetPackStrengthX: 2
   JetPackStrengthY: 10
   playerMass: 0.1

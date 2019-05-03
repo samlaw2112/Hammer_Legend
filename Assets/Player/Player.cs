@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public float firstLaunchSpeedX;
     [Tooltip("Base speed that player will always be moving to the right (after first launch).")]
     public float baseSpeed;
+    [Tooltip("Forward force added to player by jet pack.")]
+    public float JetPackStrength;
     [Tooltip("Force in x added to player by jet pack.")]
     public float JetPackStrengthX;
     [Tooltip("Force in y added to player by jet pack.")]
@@ -53,8 +55,8 @@ public class Player : MonoBehaviour
         // Nudges player upwards when finger pressed down
         if (jetPackOn)
         {
-            Debug.Log("Applying jet pack");
-            body.AddForce(new Vector2(JetPackStrengthX, JetPackStrengthY));
+            body.AddForce((transform.up * JetPackStrengthY) + (transform.right * JetPackStrengthX));
+            
         }
     }
 
