@@ -10,29 +10,29 @@ public class SwipeController : MonoBehaviour
 {
     private Player player;
     private LaunchTrajectory launchTrajectory;
-    private bool firstLaunch;
+    private bool firstLaunch, isDown = false;
     private Vector3 dragStartPoint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        // If pointer is down
+        if (isDown)
+        {
+            UpdateDragPosition();
+            UseJetPack();
+        }
     }
 
     // Called when user starts a drag
-    public void StartDrag()
+    void StartDrag()
     {
         // Store start point of drag
         dragStartPoint = Input.mousePosition;
     }
 
     // Called during a drag
-    public void UpdateDragPosition()
+    void UpdateDragPosition()
     {
         if (firstLaunch)
         {
@@ -45,7 +45,7 @@ public class SwipeController : MonoBehaviour
     }
 
     // Called at the end of a drag
-    public void EndDrag()
+    void EndDrag()
     {
         // Do intitial launch if this is the first drag
         if (firstLaunch)
@@ -61,7 +61,7 @@ public class SwipeController : MonoBehaviour
     }
 
     // Call at start of press
-    public void UseJetPack()
+    void UseJetPack()
     {
         if (!firstLaunch)
         {
@@ -70,12 +70,31 @@ public class SwipeController : MonoBehaviour
     }
 
     // Call at start of press
-    public void StopJetPack()
+    void StopJetPack()
     {
         if (!firstLaunch)
         {
             player.JetPackOff();
         }
+    }
+
+    // Called by event trigger
+    public void PointerDown()
+    {
+        // If pointer wasn't already down, start down events
+        if (!isDown)
+        {
+            StartDrag();
+            isDown = true;
+        }
+    }
+
+    // Called by event trigger
+    public void PointerUp()
+    {
+        isDown = false;
+        EndDrag();
+        StopJetPack();
     }
 
     public void SetNewPlayer(Player newPlayer)
