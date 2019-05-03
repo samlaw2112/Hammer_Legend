@@ -407,9 +407,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSensitivity: 1
   movementSpeed: 1
-  firstLaunchSpeedY: 0.5
-  firstLaunchSpeedX: 0.05
-  baseSpeed: 50
+  firstLaunchSpeedY: 1
+  firstLaunchSpeedX: 1
+  baseSpeed: 1
   playerMass: 1
   gravityScale: 10
   drag: 0.25

@@ -6,11 +6,11 @@ using UnityEngine;
 /// </summary>
 public class Shredder : MonoBehaviour
 {
-    PlayerController playerController;
+    LevelController levelController;
 
     private void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        levelController = FindObjectOfType<LevelController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -18,7 +18,7 @@ public class Shredder : MonoBehaviour
         Player player = collider.GetComponentInParent<Player>();
         if (player)
         {
-            playerController.DestroyPlayer();
+            levelController.DestroyPlayer();
         }
     }
 }
