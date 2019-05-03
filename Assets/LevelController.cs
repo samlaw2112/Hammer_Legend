@@ -18,6 +18,10 @@ public class LevelController : MonoBehaviour
     {
         swipeController = FindObjectOfType<SwipeController>();
         cameraHandle = FindObjectOfType<CameraHandle>();
+    }
+
+    private void Start()
+    {
         SpawnPlayer();
     }
 
@@ -26,11 +30,19 @@ public class LevelController : MonoBehaviour
     {
         player = Instantiate(playerPrefab, transform.position, Quaternion.identity) as GameObject;
         player.transform.SetParent(transform);
-        swipeController.SetNewPlayer(player.GetComponent<Player>());
+        // Only need to reset the gravity for respawns, not on initial spawn
+        swipeController.SetNewPlayer(GetPlayer());
         swipeController.SetFirstLaunch();
         // Only need to reset the camera for respawns, not on initial spawn
-        if (firstSpawn) { firstSpawn = false;
-        } else { cameraHandle.ResetCamera(); }
+        if (firstSpawn)
+        {
+            cameraHandle.SetPlayer(GetPlayer());
+            firstSpawn = false;
+        } else
+        {
+            cameraHandle.SetPlayer(GetPlayer());
+            cameraHandle.ResetCamera();
+        }
     }
 
     // Destroy player and spawn a new one

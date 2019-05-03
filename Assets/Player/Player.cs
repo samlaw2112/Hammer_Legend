@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Rigidbody2D body;
     private bool inAir = false;
+    private bool inSwing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,14 +39,8 @@ public class Player : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         Debug.Log("Found body " + body);
         animator = GetComponent<Animator>();
-
         body.mass = playerMass;
-    }
-
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
-
+        body.gravityScale = 0f;
     }
 
     // Updates rotation of the player
@@ -60,6 +55,7 @@ public class Player : MonoBehaviour
     public void SwingHammer()
     {
         animator.SetTrigger("SwingTrigger");
+        inSwing = true;
     }
 
     // Launches player based on angle and length of line drawn and turns on gravity
@@ -104,4 +100,14 @@ public class Player : MonoBehaviour
         return inAir;
     }
 
+    public bool GetInSwing()
+    {
+        return inSwing;
+    }
+
+    // To be called from animator at end of animation
+    public void EndSwing()
+    {
+        inSwing = false;
+    }
 }

@@ -20,7 +20,6 @@ public class CameraHandle : MonoBehaviour
         levelController = FindObjectOfType<LevelController>();
         cameraFollowStart = GameObject.Find("Camera Follow Start").GetComponent<Transform>();
         GetStartPosition();
-        GetPlayer();
         GetInitialCameraOffset();
     }
 
@@ -30,8 +29,6 @@ public class CameraHandle : MonoBehaviour
         {
             // camera follows player (x dimension only)
             transform.position = new Vector3(player.transform.position.x + offset, 0, -10);
-            Debug.Log("player position: " + player.transform.position.x);
-            Debug.Log("camera position: " + transform.position.x);
         }
     }
 
@@ -40,23 +37,19 @@ public class CameraHandle : MonoBehaviour
         offset = transform.position.x - cameraFollowStart.position.x;
     }
 
-    void GetPlayer()
-    {
-        player = levelController.GetPlayer(); ;
-    }
-
     void GetStartPosition()
     {
         startPosition = transform.position;
-        Debug.Log("Start position: " + startPosition);
     }
 
     public void ResetCamera()
     {
-        // Not working because this gets called before (LevelController.Awake()) we can get the transform of the camera
         transform.position = startPosition;
-        Debug.Log("Resetting camera to: " + transform.position);
-        GetPlayer();
+    }
+
+    public void SetPlayer(Player input)
+    {
+        player = input;
     }
 
 }

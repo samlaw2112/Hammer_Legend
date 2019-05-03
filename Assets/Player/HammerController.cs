@@ -30,8 +30,12 @@ public class HammerController : MonoBehaviour
             // TODO Improve calculation of impact angle - currently always fly orthogonal to platform edge
             // TODO increase velocity for perfect impact
 
-            // Move the player forwards along normal of the collision
-            player.GetComponent<Rigidbody2D>().velocity += collision.contacts[0].normal * launchSpeed;
+            // Only apply launch if hammer hits platform during swing
+            if (player.GetInSwing())
+            {
+                // Move the player forwards along normal of the collision
+                player.GetComponent<Rigidbody2D>().velocity += collision.contacts[0].normal * launchSpeed;
+            }
 
         }
 
