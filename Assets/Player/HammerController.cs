@@ -9,7 +9,9 @@ using UnityEngine;
 public class HammerController : MonoBehaviour
 {
     [Tooltip("Scalar applied to calculation of player launch from hammer hit on platform.")]
-    public float launchSpeed;
+    public float launchSpeedX;
+    [Tooltip("Scalar applied to calculation of player launch from hammer hit on platform.")]
+    public float launchSpeedY;
 
     private Player player;
 
@@ -34,7 +36,8 @@ public class HammerController : MonoBehaviour
             if (player.GetInSwing())
             {
                 // Move the player forwards along normal of the collision
-                player.GetComponent<Rigidbody2D>().velocity += collision.contacts[0].normal * launchSpeed;
+                player.GetComponent<Rigidbody2D>().velocity += 
+                    new Vector2(collision.contacts[0].normal.x * launchSpeedX, collision.contacts[0].normal.y * launchSpeedY) ;
             }
 
         }

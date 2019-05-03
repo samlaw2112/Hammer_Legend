@@ -60,6 +60,24 @@ public class SwipeController : MonoBehaviour
         }
     }
 
+    // Call at start of press
+    public void UseJetPack()
+    {
+        if (!firstLaunch)
+        {
+            player.JetPackOn();
+        }
+    }
+
+    // Call at start of press
+    public void StopJetPack()
+    {
+        if (!firstLaunch)
+        {
+            player.JetPackOff();
+        }
+    }
+
     public void SetNewPlayer(Player newPlayer)
     {
         player = newPlayer;
