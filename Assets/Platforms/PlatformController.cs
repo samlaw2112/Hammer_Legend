@@ -30,7 +30,7 @@ public class PlatformController: MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // If player passes checkpoint location
         if (player.transform.position.x > checkpointLocation)
@@ -59,11 +59,17 @@ public class PlatformController: MonoBehaviour
     }
 
     // Destroy all platforms in game space so we can start a new game
+    // Side effect resets spawning variables for new game
     public void DestroyAllPlatforms()
     {
         foreach (Transform platformSet in transform)
         {
             Destroy(platformSet.gameObject);
+
+            // Reset next spawn location for new game
+            nextSpawnLocationX = 0f;
+            UpdateNextSpawnLocation();
+            SetNextCheckpointLocation();
         }
     }
 
