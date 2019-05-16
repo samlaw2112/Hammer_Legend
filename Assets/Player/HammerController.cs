@@ -14,15 +14,17 @@ public class HammerController : MonoBehaviour
     public float launchSpeedY;
 
     private Player player;
+    private JetPack jetPack;
 
     // Start is called before the first frame update
     void Start()
     {
         // Assuming there will only ever be one player
-        player = FindObjectOfType<Player>();
+        player = GetComponentInParent<Player>();
+        jetPack = GetComponentInParent<JetPack>();
     }
 
-    // If hammer collides with a platform propel the player forwards
+    // If hammer collides with a platform propel the player forwards and reset jetpack boost
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Hammer detecting collision");
@@ -37,7 +39,10 @@ public class HammerController : MonoBehaviour
             {
                 // Move the player forwards along normal of the collision
                 player.GetComponent<Rigidbody2D>().velocity += 
-                    new Vector2(collision.contacts[0].normal.x * launchSpeedX, collision.contacts[0].normal.y * launchSpeedY) ;
+                    new Vector2(collision.contacts[0].normal.x * launchSpeedX, collision.contacts[0].normal.y * launchSpeedY);
+
+                // Reset jetpack boost
+                jetPack.ResetBoost();
             }
 
         }

@@ -10,6 +10,7 @@ public class JetPack : MonoBehaviour
     public float JetPackStrengthY;
 
     private bool jetPackOn = false;
+    private bool boostAvailable = true;
     private Rigidbody2D body;
 
     // Start is called before the first frame update
@@ -19,13 +20,12 @@ public class JetPack : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Nudges player upwards when finger pressed down
-        if (jetPackOn)
+        if (jetPackOn && boostAvailable)
         {
             body.AddForce((transform.up * JetPackStrengthY) + (transform.right * JetPackStrengthX));
-
         }
     }
 
@@ -35,9 +35,15 @@ public class JetPack : MonoBehaviour
         jetPackOn = true;
     }
 
-    // Nudges player upwards when finger pressed down
+    // Turns off jetpack and acknowledges boost has been used
     public void JetPackOff()
     {
         jetPackOn = false;
+        boostAvailable = false;
+    }
+
+    public void ResetBoost()
+    {
+        boostAvailable = true;
     }
 }

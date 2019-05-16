@@ -58,6 +58,7 @@ public class SwipeController : MonoBehaviour
         else
         {
             player.SwingHammer();
+            StopJetPack();
         }
     }
 
@@ -70,7 +71,7 @@ public class SwipeController : MonoBehaviour
         }
     }
 
-    // Call at start of press
+    // Call at end of press
     void StopJetPack()
     {
         if (!firstLaunch)
@@ -95,7 +96,6 @@ public class SwipeController : MonoBehaviour
     {
         isDown = false;
         EndDrag();
-        StopJetPack();
     }
 
     // Side effect gets the new player's jet pack also
