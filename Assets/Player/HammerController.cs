@@ -15,6 +15,7 @@ public class HammerController : MonoBehaviour
 
     private Player player;
     private JetPack jetPack;
+    private AudioSource boingSound;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class HammerController : MonoBehaviour
         // Assuming there will only ever be one player
         player = GetComponentInParent<Player>();
         jetPack = GetComponentInParent<JetPack>();
+        boingSound = GetComponent<AudioSource>();
     }
 
     // If hammer collides with a platform propel the player forwards and reset jetpack boost
@@ -43,6 +45,9 @@ public class HammerController : MonoBehaviour
 
                 // Reset jetpack boost
                 jetPack.ResetBoost();
+
+                // play sound
+                boingSound.Play();
             }
 
         }

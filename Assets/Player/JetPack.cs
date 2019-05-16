@@ -16,12 +16,14 @@ public class JetPack : MonoBehaviour
     private float boostStartTime; // Stores start time of each jet pack boost
     private Rigidbody2D body;
     private ParticleSystem particleEffect;
+    private AudioSource thrustSound;
 
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         particleEffect = GetComponent<ParticleSystem>();
+        thrustSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,6 +50,7 @@ public class JetPack : MonoBehaviour
         {
             jetPackOn = true;
             particleEffect.Play();
+            thrustSound.Play();
         }
         else { return; }
         
@@ -59,6 +62,7 @@ public class JetPack : MonoBehaviour
         jetPackOn = false;
         boostAvailable = false;
         particleEffect.Stop();
+        thrustSound.Stop();
     }
 
     public void ResetBoost()
