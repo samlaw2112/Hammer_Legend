@@ -405,8 +405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c0b94c01ea69d44a95b84f320c204d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JetPackStrengthX: 10
-  JetPackStrengthY: 10
+  jetPackStrengthX: 10
+  jetPackStrengthY: 10
+  boostDuration: 2
 --- !u!1 &7951464596049649775
 GameObject:
   m_ObjectHideFlags: 0

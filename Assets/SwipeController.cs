@@ -30,6 +30,12 @@ public class SwipeController : MonoBehaviour
     {
         // Store start point of drag
         dragStartPoint = Input.mousePosition;
+
+        // Tell jet pack boost has just started (not on first launch)
+        if (!firstLaunch)
+        {
+            jetPack.SetBoostStartTime();
+        }
     }
 
     // Called during a drag

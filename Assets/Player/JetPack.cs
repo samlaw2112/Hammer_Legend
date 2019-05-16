@@ -5,12 +5,15 @@ using UnityEngine;
 public class JetPack : MonoBehaviour
 {
     [Tooltip("Force in x added to player by jet pack.")]
-    public float JetPackStrengthX;
+    public float jetPackStrengthX;
     [Tooltip("Force in y added to player by jet pack.")]
-    public float JetPackStrengthY;
+    public float jetPackStrengthY;
+    [Tooltip("Maximum length of single jet pack boost in seconds.")]
+    public float boostDuration;
 
     private bool jetPackOn = false;
     private bool boostAvailable = true;
+    private float boostStartTime; // Stores start time of each jet pack boost
     private Rigidbody2D body;
 
     // Start is called before the first frame update
@@ -25,7 +28,13 @@ public class JetPack : MonoBehaviour
         // Nudges player upwards when finger pressed down
         if (jetPackOn && boostAvailable)
         {
-            body.AddForce((transform.up * JetPackStrengthY) + (transform.right * JetPackStrengthX));
+            // if total jet pack boost time hasn't yet elapsed for this boost
+            if (Time.time <= boostStartTime + boostDuration)
+            {
+                float time = Time.time - boostStartTime;
+                body.AddForce((transform.up * jetPackStrengthY) + (transform.right * jetPackStrengthX));
+            } else { boostAvailable = false; }
+            
         }
     }
 
@@ -45,5 +54,10 @@ public class JetPack : MonoBehaviour
     public void ResetBoost()
     {
         boostAvailable = true;
+    }
+
+    public void SetBoostStartTime()
+    {
+        boostStartTime = Time.time;
     }
 }
