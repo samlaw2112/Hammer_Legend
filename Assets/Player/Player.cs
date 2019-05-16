@@ -14,12 +14,6 @@ public class Player : MonoBehaviour
     public float firstLaunchSpeedX;
     [Tooltip("Base speed that player will always be moving to the right (after first launch).")]
     public float baseSpeed;
-    [Tooltip("Forward force added to player by jet pack.")]
-    public float JetPackStrength;
-    [Tooltip("Force in x added to player by jet pack.")]
-    public float JetPackStrengthX;
-    [Tooltip("Force in y added to player by jet pack.")]
-    public float JetPackStrengthY;
     [Tooltip("Mass of player character (Active after start launch).")]
     public float playerMass;
     [Tooltip("Gravity scale of player character (Active after first launch).")]
@@ -30,9 +24,9 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private Rigidbody2D body;
+    private JetPack jetPack;
     private bool inAir = false;
     private bool inSwing = false;
-    private bool jetPackOn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,20 +38,10 @@ public class Player : MonoBehaviour
     public void ConstructPlayer()
     {
         body = GetComponent<Rigidbody2D>();
-        Debug.Log("Found body " + body);
         animator = GetComponent<Animator>();
+        jetPack = GetComponent<JetPack>();
         body.mass = playerMass;
         body.gravityScale = 0f;
-    }
-
-    private void FixedUpdate()
-    {
-        // Nudges player upwards when finger pressed down
-        if (jetPackOn)
-        {
-            body.AddForce((transform.up * JetPackStrengthY) + (transform.right * JetPackStrengthX));
-            
-        }
     }
 
     // Updates rotation of the player
@@ -83,45 +67,6 @@ public class Player : MonoBehaviour
         body.gravityScale = gravityScale;
         body.drag = drag;
         inAir = true;
-    }
-
- 
-    public void JetPackOn()
-    {
-        jetPackOn = true;
-    }
-
-    // Nudges player upwards when finger pressed down
-    public void JetPackOff()
-    {
-        jetPackOn = false;
-    }
-
-
-    // Move player with arrow keys (temporary only using for testing)
-    void MovePlayerIfArrowDown()
-    {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.position += new Vector3(-movementSpeed, 0f);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.position += new Vector3(movementSpeed, 0f);
-        }
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.position += new Vector3(0f, movementSpeed);
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.position += new Vector3(0f, -movementSpeed);
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            body.velocity = new Vector3(0f, 0f);
-        }
-        else { return; };
     }
 
     public bool GetInAir()

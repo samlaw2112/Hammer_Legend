@@ -9,6 +9,7 @@ using UnityEngine;
 public class SwipeController : MonoBehaviour
 {
     private Player player;
+    private JetPack jetPack;
     private LaunchTrajectory launchTrajectory;
     private bool firstLaunch, isDown = false;
     private Vector3 dragStartPoint;
@@ -65,7 +66,7 @@ public class SwipeController : MonoBehaviour
     {
         if (!firstLaunch)
         {
-            player.JetPackOn();
+            jetPack.JetPackOn();
         }
     }
 
@@ -74,7 +75,7 @@ public class SwipeController : MonoBehaviour
     {
         if (!firstLaunch)
         {
-            player.JetPackOff();
+            jetPack.JetPackOff();
         }
     }
 
@@ -97,9 +98,11 @@ public class SwipeController : MonoBehaviour
         StopJetPack();
     }
 
+    // Side effect gets the new player's jet pack also
     public void SetNewPlayer(Player newPlayer)
     {
         player = newPlayer;
+        jetPack = newPlayer.GetComponent<JetPack>();
     }
 
     public void SetFirstLaunch ()
