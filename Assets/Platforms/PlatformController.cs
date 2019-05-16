@@ -53,8 +53,8 @@ public class PlatformController: MonoBehaviour
 
     public void SpawnStartPlatforms()
     {
-        // Spawn first set of platforms and start location (0,0,0)
-        GameObject platformSet = Instantiate(startPlatformSet, Vector3.zero, Quaternion.identity);
+        // Spawn first set of platforms and start location (inherited from this object)
+        GameObject platformSet = Instantiate(startPlatformSet, transform.position, Quaternion.identity);
         platformSet.transform.SetParent(this.transform);
     }
 
@@ -84,7 +84,7 @@ public class PlatformController: MonoBehaviour
         // TODO increase spawn rate of more difficult sets based on distance travelled
         int setToSpawn = Random.Range(0, platformSets.Length);
         // Spawn at next spawn location
-        Vector3 spawnLocation = new Vector3(nextSpawnLocationX, 0, 0);
+        Vector3 spawnLocation = new Vector3(nextSpawnLocationX, transform.position.y, transform.position.z);
         GameObject platformSet = Instantiate(platformSets[setToSpawn], spawnLocation, Quaternion.identity);
         platformSet.transform.SetParent(this.transform);
     }
