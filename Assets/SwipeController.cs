@@ -21,7 +21,6 @@ public class SwipeController : MonoBehaviour
         if (isDown)
         {
             UpdateDragPosition();
-            UseJetPack();
         }
     }
 
@@ -34,7 +33,7 @@ public class SwipeController : MonoBehaviour
         // Tell jet pack boost has just started (not on first launch)
         if (!firstLaunch)
         {
-            jetPack.SetBoostStartTime();
+            UseJetPack();
         }
     }
 
@@ -74,6 +73,7 @@ public class SwipeController : MonoBehaviour
         if (!firstLaunch)
         {
             jetPack.JetPackOn();
+            jetPack.SetBoostStartTime();
         }
     }
 

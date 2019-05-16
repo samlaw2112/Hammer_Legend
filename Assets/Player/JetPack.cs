@@ -15,11 +15,13 @@ public class JetPack : MonoBehaviour
     private bool boostAvailable = true;
     private float boostStartTime; // Stores start time of each jet pack boost
     private Rigidbody2D body;
+    private ParticleSystem particleEffect;
 
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        particleEffect = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -33,15 +35,22 @@ public class JetPack : MonoBehaviour
             {
                 float time = Time.time - boostStartTime;
                 body.AddForce((transform.up * jetPackStrengthY) + (transform.right * jetPackStrengthX));
-            } else { boostAvailable = false; }
+            }  else { JetPackOff(); }
             
         }
     }
 
 
+    // Turns jet pack on and particle system if boost is available
     public void JetPackOn()
     {
-        jetPackOn = true;
+        if (boostAvailable)
+        {
+            jetPackOn = true;
+            particleEffect.Play();
+        }
+        else { return; }
+        
     }
 
     // Turns off jetpack and acknowledges boost has been used
@@ -49,6 +58,7 @@ public class JetPack : MonoBehaviour
     {
         jetPackOn = false;
         boostAvailable = false;
+        particleEffect.Stop();
     }
 
     public void ResetBoost()
