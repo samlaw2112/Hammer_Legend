@@ -18,7 +18,7 @@ public class Shredder : MonoBehaviour
         Player player = collider.GetComponentInParent<Player>();
         if (player)
         {
-            levelController.DestroyPlayer();
+            levelController.DestroyPlayerAndStartNewGame();
         }
     }
 }

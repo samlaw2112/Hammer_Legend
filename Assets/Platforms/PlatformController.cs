@@ -4,9 +4,10 @@ using UnityEngine;
 /// <summary>
 /// Responsible for spawning platform sets ahead of player.
 /// </summary>
-public class PlatformSpawner : MonoBehaviour
+public class PlatformController: MonoBehaviour
 {
-    public GameObject[] platformSets = new GameObject[1];
+    public GameObject[] platformSets;
+    public GameObject startPlatformSet;
 
     private LevelController levelController;
     private Player player;
@@ -48,6 +49,22 @@ public class PlatformSpawner : MonoBehaviour
     public void SetPlayer(Player newPlayer)
     {
         player = newPlayer;
+    }
+
+    public void SpawnStartPlatforms()
+    {
+        // Spawn first set of platforms and start location (0,0,0)
+        GameObject platformSet = Instantiate(startPlatformSet, Vector3.zero, Quaternion.identity);
+        platformSet.transform.SetParent(this.transform);
+    }
+
+    // Destroy all platforms in game space so we can start a new game
+    public void DestroyAllPlatforms()
+    {
+        foreach (Transform platformSet in transform)
+        {
+            Destroy(platformSet.gameObject);
+        }
     }
 
     void SetNextCheckpointLocation()

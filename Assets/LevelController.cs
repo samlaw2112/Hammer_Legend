@@ -12,7 +12,7 @@ public class LevelController : MonoBehaviour
     private GameObject player;
     private SwipeController swipeController;
     private CameraHandle cameraHandle;
-    private PlatformSpawner platformSpawner;
+    private PlatformController platformController;
     private bool firstSpawn = true;
 
     private void Awake()
@@ -20,12 +20,13 @@ public class LevelController : MonoBehaviour
         // Asuming only one of each of the following
         swipeController = FindObjectOfType<SwipeController>();
         cameraHandle = FindObjectOfType<CameraHandle>();
-        platformSpawner = FindObjectOfType<PlatformSpawner>();
+        platformController = FindObjectOfType<PlatformController>();
     }
 
     private void Start()
     {
         SpawnPlayer();
+        platformController.SpawnStartPlatforms();
     }
 
     // Spawn a new player, ready for first launch and reset camera position
@@ -37,7 +38,7 @@ public class LevelController : MonoBehaviour
         swipeController.SetNewPlayer(GetPlayer());
         swipeController.SetFirstLaunch();
         cameraHandle.SetPlayer(GetPlayer());
-        platformSpawner.SetPlayer(GetPlayer());
+        platformController.SetPlayer(GetPlayer());
         // Only need to reset the camera for respawns, not on initial spawn
         if (firstSpawn)
         {
@@ -49,10 +50,12 @@ public class LevelController : MonoBehaviour
     }
 
     // Destroy player and spawn a new one
-    public void DestroyPlayer()
+    public void DestroyPlayerAndStartNewGame()
     {
         Destroy(player.gameObject);
         SpawnPlayer();
+        platformController.DestroyAllPlatforms();
+        platformController.SpawnStartPlatforms();
     }
 
     public Player GetPlayer()
