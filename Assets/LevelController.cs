@@ -13,6 +13,7 @@ public class LevelController : MonoBehaviour
     private SwipeController swipeController;
     private CameraHandle cameraHandle;
     private PlatformController platformController;
+    private Score score;
     private bool firstSpawn = true;
 
     private void Awake()
@@ -21,6 +22,7 @@ public class LevelController : MonoBehaviour
         swipeController = FindObjectOfType<SwipeController>();
         cameraHandle = FindObjectOfType<CameraHandle>();
         platformController = FindObjectOfType<PlatformController>();
+        score = FindObjectOfType<Score>();
     }
 
     private void Start()
@@ -39,6 +41,7 @@ public class LevelController : MonoBehaviour
         swipeController.SetFirstLaunch();
         cameraHandle.SetPlayer(GetPlayer());
         platformController.SetPlayer(GetPlayer());
+        score.SetPlayer(GetPlayer());
         // Only need to reset the camera for respawns, not on initial spawn
         if (firstSpawn)
         {
