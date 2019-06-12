@@ -13,7 +13,7 @@ public class PlatformController: MonoBehaviour
     private Player player;
     // Spawn location for next spawn of set of platforms (in x)
     private float nextSpawnLocationX = 0f; // initialised to 0
-    private float distanceBetweenSpawns = 660f; // Sensible default assuming all platform sets are the same length
+    private float distanceBetweenSpawns = 600f; // Sensible default assuming all platform sets are the same length
     private float distanceBetweenCheckpointAndNextSpawn = 300f; // Sensible default
     // Checkpoint location, next platform set will be spawned when player crosses checkpoint
     private float checkpointLocation;

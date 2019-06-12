@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ae2540602935b4f82e17ff3debc810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchSpeedX: 200
+  launchSpeedX: 300
   launchSpeedY: 50
 --- !u!82 &7139422194709771320
 AudioSource:
@@ -465,7 +465,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
