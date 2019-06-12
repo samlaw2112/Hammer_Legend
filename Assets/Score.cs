@@ -8,6 +8,7 @@ public class Score : MonoBehaviour
     Text text;
     LevelController levelController;
     Player player;
+    float playerMaxPos = 0; // Used to keep track of the maximum distance player has travelled (reset on death)
     int score = 0;
 
     // Start is called before the first frame update
@@ -35,9 +36,21 @@ public class Score : MonoBehaviour
     void CalculateScore()
     {
         // TODO improve scoring
-        // Score shouldn't go down if player goes backwards
         // Start score increase after some distance reached
         // Actions get more points - hit some target in the environment?
-        score = Mathf.RoundToInt(player.transform.position.x);
+
+        float currentPos = player.transform.position.x;
+        // Only update score if player is at max distance travelled
+        if (currentPos > playerMaxPos)
+        {
+            playerMaxPos = currentPos;
+            score = Mathf.RoundToInt(playerMaxPos);
+        }
+    }
+
+    public void ResetScore()
+    {
+        playerMaxPos = 0;
+        score = 0;
     }
 }

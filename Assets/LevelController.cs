@@ -42,6 +42,8 @@ public class LevelController : MonoBehaviour
         cameraHandle.SetPlayer(GetPlayer());
         platformController.SetPlayer(GetPlayer());
         score.SetPlayer(GetPlayer());
+        score.ResetScore();
+
         // Only need to reset the camera for respawns, not on initial spawn
         if (firstSpawn)
         {
